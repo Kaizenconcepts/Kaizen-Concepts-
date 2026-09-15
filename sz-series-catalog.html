@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SZ Series — Parts Index</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EDEEF0;
+    --panel:#F7F7F5;
+    --ink:#1B2126;
+    --ink-soft:#4E5A61;
+    --steel:#4A5A66;
+    --line:#C7CDD1;
+    --line-strong:#9AA3A8;
+    --accent:#C6501A;
+    --accent-ink:#FFFFFF;
+    --good:#3F6B4F;
+    --bad:#A23B2E;
+    --chip-bg:#E3E6E7;
+    --font-sans:'IBM Plex Sans', -apple-system, sans-serif;
+    --font-mono:'IBM Plex Mono', 'SFMono-Regular', monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#14171A;
+      --panel:#1C2023;
+      --ink:#E7E9EA;
+      --ink-soft:#9AA6AC;
+      --steel:#8FA3AE;
+      --line:#33393D;
+      --line-strong:#4B5257;
+      --accent:#E06A2E;
+      --accent-ink:#14171A;
+      --good:#6FA983;
+      --bad:#D97B6C;
+      --chip-bg:#25292C;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14171A;
+    --panel:#1C2023;
+    --ink:#E7E9EA;
+    --ink-soft:#9AA6AC;
+    --steel:#8FA3AE;
+    --line:#33393D;
+    --line-strong:#4B5257;
+    --accent:#E06A2E;
+    --accent-ink:#14171A;
+    --good:#6FA983;
+    --bad:#D97B6C;
+    --chip-bg:#25292C;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-sans);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1280px;margin:0 auto;padding:0 24px 80px;}
+
+  /* ---------- Header / ticker ---------- */
+  header.top{
+    border-bottom:1px solid var(--line-strong);
+    padding:22px 24px 18px;
+  }
+  .top-inner{max-width:1280px;margin:0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .brand{display:flex;align-items:baseline;gap:14px;}
+  .brand h1{
+    font-size:22px;font-weight:700;margin:0;letter-spacing:0.01em;
+  }
+  .brand .sub{
+    font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);
+  }
+  .tally{
+    display:flex;gap:0;border:1px solid var(--line-strong);
+  }
+  .tally div{
+    padding:8px 16px;font-family:var(--font-mono);
+    border-right:1px solid var(--line-strong);
+    text-align:center;min-width:92px;
+  }
+  .tally div:last-child{border-right:none;}
+  .tally .n{display:block;font-size:20px;font-weight:600;line-height:1.1;}
+  .tally .l{display:block;font-size:10px;color:var(--ink-soft);margin-top:2px;}
+
+  /* ---------- Layout ---------- */
+  .layout{
+    display:grid;grid-template-columns:250px 1fr;gap:28px;margin-top:28px;
+  }
+  @media (max-width:860px){
+    .layout{grid-template-columns:1fr;}
+  }
+
+  /* ---------- Sidebar ---------- */
+  aside{position:sticky;top:16px;align-self:start;}
+  .side-block{margin-bottom:26px;}
+  .side-block h3{
+    font-size:11px;text-transform:uppercase;letter-spacing:0.08em;
+    color:var(--ink-soft);margin:0 0 10px;font-weight:600;
+  }
+  input[type="text"], select{
+    width:100%;padding:9px 10px;border:1px solid var(--line-strong);
+    background:var(--panel);color:var(--ink);font-family:var(--font-sans);font-size:13.5px;
+  }
+  input[type="text"]:focus, select:focus{outline:2px solid var(--steel);outline-offset:1px;}
+  .chip-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+  .chip{
+    font-family:var(--font-mono);font-size:11.5px;padding:5px 9px;
+    background:var(--chip-bg);border:1px solid transparent;cursor:pointer;
+    color:var(--ink-soft);
+  }
+  .chip.active{border-color:var(--steel);color:var(--ink);background:var(--panel);font-weight:600;}
+  .chip:hover{color:var(--ink);}
+
+  .add-btn{
+    width:100%;padding:11px 12px;background:var(--accent);color:var(--accent-ink);
+    border:none;font-family:var(--font-sans);font-weight:600;font-size:14px;cursor:pointer;
+  }
+  .add-btn:hover{filter:brightness(1.06);}
+
+  .watch{
+    border:1px solid var(--line);padding:14px;background:var(--panel);
+  }
+  .watch h3{margin-top:0;}
+  .watch ul{margin:0;padding-left:18px;font-size:12.5px;color:var(--ink-soft);line-height:1.6;}
+
+  .backup-row{display:flex;gap:8px;margin-top:8px;}
+  .backup-row button{
+    flex:1;padding:8px 6px;font-family:var(--font-mono);font-size:11px;
+    background:transparent;border:1px solid var(--line-strong);color:var(--ink-soft);cursor:pointer;
+  }
+  .backup-row button:hover{color:var(--ink);border-color:var(--ink);}
+
+  /* ---------- Sub-family groups ---------- */
+  .group{margin-bottom:34px;}
+  .group-head{
+    display:flex;align-items:baseline;justify-content:space-between;
+    border-bottom:1px solid var(--line-strong);padding-bottom:6px;margin-bottom:10px;
+  }
+  .group-head h2{font-size:15px;margin:0;font-weight:700;}
+  .group-head .count{font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);}
+
+  /* ---------- Card list ---------- */
+  .row{
+    display:grid;
+    grid-template-columns:150px 1fr 100px 90px 60px 70px;
+    align-items:center;gap:14px;
+    padding:11px 10px;border-bottom:1px solid var(--line);
+    font-size:13.5px;
+  }
+  .row.head{
+    font-size:10.5px;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);
+    border-bottom:1px solid var(--line-strong);font-weight:600;
+  }
+  .row:not(.head):hover{background:var(--panel);}
+  .sku{font-family:var(--font-mono);font-weight:600;}
+  .desc{color:var(--ink-soft);}
+  .imgcount{font-family:var(--font-mono);text-align:right;}
+  .row-actions{display:flex;gap:8px;justify-content:flex-end;}
+  .row-actions button{
+    background:none;border:none;color:var(--ink-soft);cursor:pointer;font-size:12px;
+    font-family:var(--font-mono);padding:2px 4px;
+  }
+  .row-actions button:hover{color:var(--accent);}
+  @media (max-width:700px){
+    .row{grid-template-columns:1fr;gap:2px;padding:12px 10px;}
+    .row.head{display:none;}
+    .row > div::before{content:attr(data-label) ": ";color:var(--ink-soft);font-family:var(--font-mono);font-size:10.5px;}
+    .row-actions{justify-content:flex-start;margin-top:4px;}
+  }
+
+  .empty-state{
+    padding:40px 10px;text-align:center;color:var(--ink-soft);font-size:13.5px;
+    border:1px dashed var(--line-strong);
+  }
+
+  /* ---------- Legacy block ---------- */
+  .legacy{
+    border:1px solid var(--line);background:var(--panel);padding:16px 18px;
+    display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-bottom:30px;
+  }
+  .legacy .l-title{font-size:12.5px;color:var(--ink-soft);max-width:280px;line-height:1.5;}
+  .legacy label{
+    display:flex;flex-direction:column;gap:4px;font-size:10.5px;color:var(--ink-soft);
+    text-transform:uppercase;letter-spacing:0.06em;
+  }
+  .legacy input[type="number"]{
+    font-family:var(--font-mono);font-size:14px;padding:6px 8px;width:90px;
+    border:1px solid var(--line-strong);background:var(--bg);color:var(--ink);
+  }
+
+  /* ---------- Drawer ---------- */
+  .overlay{
+    position:fixed;inset:0;background:rgba(0,0,0,0.35);display:none;z-index:40;
+  }
+  .overlay.open{display:block;}
+  .drawer{
+    position:fixed;top:0;right:0;height:100%;width:min(420px, 92vw);
+    background:var(--bg);border-left:1px solid var(--line-strong);
+    transform:translateX(100%);transition:transform .25s ease;z-index:50;
+    display:flex;flex-direction:column;
+  }
+  .drawer.open{transform:translateX(0);}
+  .drawer-head{
+    padding:20px 22px;border-bottom:1px solid var(--line-strong);
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .drawer-head h2{font-size:16px;margin:0;}
+  .drawer-head button{background:none;border:none;font-size:20px;color:var(--ink-soft);cursor:pointer;line-height:1;}
+  .drawer-body{padding:20px 22px;overflow-y:auto;flex:1;}
+  .field{margin-bottom:16px;}
+  .field label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:6px;}
+  .field input, .field select{width:100%;}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .drawer-foot{padding:18px 22px;border-top:1px solid var(--line-strong);}
+  .save-btn{width:100%;padding:12px;background:var(--accent);color:var(--accent-ink);border:none;font-weight:600;font-size:14px;cursor:pointer;font-family:var(--font-sans);}
+  .save-btn:hover{filter:brightness(1.06);}
+  .hint{font-size:11.5px;color:var(--ink-soft);margin-top:4px;}
+  .toast{
+    position:fixed;bottom:22px;right:22px;background:var(--good);color:#fff;
+    padding:10px 16px;font-size:13px;font-family:var(--font-mono);
+    opacity:0;transform:translateY(6px);transition:all .2s ease;z-index:60;pointer-events:none;
+  }
+  .toast.show{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="brand">
+      <h1>SZ Series — Parts Index</h1>
+      <span class="sub">office &amp; task seating / lounge / stacking sub-lines</span>
+    </div>
+    <div class="tally">
+      <div><span class="n" id="tallyProducts">—</span><span class="l">products</span></div>
+      <div><span class="n" id="tallyImages">—</span><span class="l">images</span></div>
+      <div><span class="n" id="tallyFamilies">—</span><span class="l">sub-families</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="layout">
+
+    <aside>
+      <div class="side-block">
+        <h3>Search</h3>
+        <input type="text" id="search" placeholder="SKU or keyword…">
+      </div>
+
+      <div class="side-block">
+        <h3>Sub-family</h3>
+        <div class="chip-row" id="familyChips"></div>
+      </div>
+
+      <div class="side-block">
+        <h3>Base type</h3>
+        <div class="chip-row" id="baseChips"></div>
+      </div>
+
+      <div class="side-block">
+        <h3>Color / finish</h3>
+        <div class="chip-row" id="colorChips"></div>
+      </div>
+
+      <div class="side-block">
+        <button class="add-btn" onclick="openDrawer()">+ Add product</button>
+        <div class="backup-row">
+          <button onclick="exportJSON()">Export .json</button>
+          <button onclick="document.getElementById('importFile').click()">Import .json</button>
+        </div>
+        <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importJSON(event)">
+      </div>
+
+      <div class="side-block watch">
+        <h3>Watchlist — likely gaps</h3>
+        <ul id="watchList"></ul>
+      </div>
+    </aside>
+
+    <main>
+      <div class="legacy">
+        <div class="l-title">
+          Products 1–64 were logged before this itemized index started and aren't broken out individually here. Adjust these two figures if the original tallies change.
+        </div>
+        <label>Legacy products
+          <input type="number" id="legacyProducts" min="0" value="64">
+        </label>
+        <label>Legacy images
+          <input type="number" id="legacyImages" min="0" value="360">
+        </label>
+      </div>
+
+      <div id="groups"></div>
+    </main>
+
+  </div>
+</div>
+
+<!-- Drawer -->
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-head">
+    <h2 id="drawerTitle">Add product</h2>
+    <button onclick="closeDrawer()">×</button>
+  </div>
+  <div class="drawer-body">
+    <input type="hidden" id="editId">
+    <div class="field">
+      <label>SKU</label>
+      <input type="text" id="f-sku" placeholder="e.g. KC-817A">
+    </div>
+    <div class="field">
+      <label>Sub-family</label>
+      <input type="text" id="f-family" placeholder="e.g. KC-817" list="familyList">
+      <datalist id="familyList"></datalist>
+    </div>
+    <div class="field">
+      <label>Description</label>
+      <input type="text" id="f-desc" placeholder="e.g. Swivel task, headrest, mesh back">
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Color / finish</label>
+        <input type="text" id="f-color" placeholder="e.g. Black">
+      </div>
+      <div class="field">
+        <label>Base type</label>
+        <input type="text" id="f-base" placeholder="e.g. Chrome sled">
+      </div>
+    </div>
+    <div class="field">
+      <label>Image count</label>
+      <input type="number" id="f-images" min="0" value="5">
+    </div>
+    <div class="hint">Saved to this browser only. Use Export to back up or move the catalog elsewhere.</div>
+  </div>
+  <div class="drawer-foot">
+    <button class="save-btn" onclick="saveProduct()">Save product</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const STORAGE_KEY = 'sz_catalog_products_v1';
+const LEGACY_KEY = 'sz_catalog_legacy_v1';
+
+const seedProducts = [
+  {id:'p65', sku:'KC-035A1-HP', family:'KC-035', desc:'Headrest, black shell', color:'Black', base:'Swivel', images:5},
+  {id:'p66', sku:'KC-035B1-HP', family:'KC-035', desc:'No headrest, black shell', color:'Black', base:'Swivel', images:5},
+  {id:'p67', sku:'KC-730B-HS', family:'KC-730', desc:'Swivel task, no headrest', color:'Blue-grey / Blue', base:'Swivel', images:5},
+  {id:'p68', sku:'KC-730C', family:'KC-730', desc:'Cantilever guest chair', color:'Black', base:'Cantilever', images:5},
+  {id:'p69', sku:'KC-730A', family:'KC-730', desc:'Swivel task, with headrest', color:'Black', base:'Swivel', images:5},
+  {id:'p70', sku:'KC-730B', family:'KC-730', desc:'Swivel task, no headrest', color:'Black', base:'Swivel', images:5},
+  {id:'p71', sku:'KC-730A-HS', family:'KC-730', desc:'Swivel task, with headrest', color:'Blue-grey / Blue', base:'Swivel', images:5},
+  {id:'p72', sku:'KC-40-3', family:'KC-40 Lounge', desc:'Tufted 3-seat sofa', color:'Black leather', base:'Chrome block legs', images:5},
+  {id:'p73', sku:'KC-40-1', family:'KC-40 Lounge', desc:'Tufted armchair', color:'Black leather', base:'Chrome block legs', images:5},
+  {id:'p74', sku:'KC-40-2', family:'KC-40 Lounge', desc:'Tufted loveseat', color:'Black leather', base:'Chrome block legs', images:5},
+  {id:'p75', sku:'KC-817B-BS', family:'KC-817', desc:'Swivel task, perforated lumbar panel', color:'White/Grey shell, black seat', base:'Aluminum', images:5},
+  {id:'p76', sku:'KC-817C', family:'KC-817', desc:'Cantilever guest', color:'Black shell, black seat', base:'Cantilever', images:5},
+  {id:'p77', sku:'KC-817C-BS', family:'KC-817', desc:'Cantilever guest', color:'White/Grey shell, blue seat', base:'Cantilever chrome', images:5},
+  {id:'p78', sku:'KC-031D', family:'KC-031', desc:'Training / nesting chair, folding tablet arm', color:'White frame, grey mesh', base:'Nesting', images:5},
+  {id:'p79', sku:'KC-252A Black', family:'KC-252', desc:'Armless stacking, perforated-slat back', color:'Black', base:'Chrome sled', images:5},
+  {id:'p80', sku:'KC-252A Blue', family:'KC-252', desc:'Armless stacking, perforated-slat back', color:'Blue', base:'Chrome sled', images:5},
+  {id:'p81', sku:'KC-252A Grey', family:'KC-252', desc:'Armless stacking, perforated-slat back', color:'Grey', base:'Chrome sled', images:5},
+  {id:'p82', sku:'KC-252A White', family:'KC-252', desc:'Armless stacking, perforated-slat back', color:'White', base:'Chrome sled', images:5},
+  {id:'p83', sku:'KC-252A Yellow', family:'KC-252', desc:'Armless stacking, perforated-slat back', color:'Yellow', base:'Chrome sled', images:5},
+];
+
+const watchItems = [
+  'KC-730C-HS — blue-grey cantilever guest, to mirror the 5-piece 730 pattern',
+  'Plain KC-817B (black swivel) and a possible KC-817A headrest variant',
+  'KC-031A / B / C — other letters in the training/nesting run',
+  'KC-252 arm version, or colorways beyond Black/Blue/Grey/White/Yellow',
+];
+
+let products = [];
+let legacy = {products:64, images:360};
+let filters = {search:'', family:null, base:null, color:null};
+
+function load(){
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if(raw){
+    try{ products = JSON.parse(raw); }catch(e){ products = seedProducts.slice(); }
+  } else {
+    products = seedProducts.slice();
+    persist();
+  }
+  const rawLegacy = localStorage.getItem(LEGACY_KEY);
+  if(rawLegacy){
+    try{ legacy = JSON.parse(rawLegacy); }catch(e){}
+  }
+  document.getElementById('legacyProducts').value = legacy.products;
+  document.getElementById('legacyImages').value = legacy.images;
+}
+function persist(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+}
+function persistLegacy(){
+  legacy.products = parseInt(document.getElementById('legacyProducts').value)||0;
+  legacy.images = parseInt(document.getElementById('legacyImages').value)||0;
+  localStorage.setItem(LEGACY_KEY, JSON.stringify(legacy));
+  renderTally();
+}
+
+function uniqueVals(key){
+  return [...new Set(products.map(p=>p[key]).filter(Boolean))].sort();
+}
+
+function renderChips(){
+  const famC = document.getElementById('familyChips');
+  const baseC = document.getElementById('baseChips');
+  const colorC = document.getElementById('colorChips');
+  famC.innerHTML=''; baseC.innerHTML=''; colorC.innerHTML='';
+
+  uniqueVals('family').forEach(f=>{
+    const c = document.createElement('div');
+    c.className = 'chip' + (filters.family===f?' active':'');
+    c.textContent = f;
+    c.onclick = ()=>{ filters.family = filters.family===f? null : f; render(); };
+    famC.appendChild(c);
+  });
+  uniqueVals('base').forEach(b=>{
+    const c = document.createElement('div');
+    c.className = 'chip' + (filters.base===b?' active':'');
+    c.textContent = b;
+    c.onclick = ()=>{ filters.base = filters.base===b? null : b; render(); };
+    baseC.appendChild(c);
+  });
+  uniqueVals('color').forEach(col=>{
+    const c = document.createElement('div');
+    c.className = 'chip' + (filters.color===col?' active':'');
+    c.textContent = col;
+    c.onclick = ()=>{ filters.color = filters.color===col? null : col; render(); };
+    colorC.appendChild(c);
+  });
+
+  const dl = document.getElementById('familyList');
+  dl.innerHTML = uniqueVals('family').map(f=>`<option value="${escapeHtml(f)}">`).join('');
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+function filteredProducts(){
+  const q = filters.search.trim().toLowerCase();
+  return products.filter(p=>{
+    if(filters.family && p.family!==filters.family) return false;
+    if(filters.base && p.base!==filters.base) return false;
+    if(filters.color && p.color!==filters.color) return false;
+    if(q && !(`${p.sku} ${p.desc} ${p.family} ${p.color} ${p.base}`.toLowerCase().includes(q))) return false;
+    return true;
+  });
+}
+
+function renderTally(){
+  const list = products;
+  const totalProducts = list.length + legacy.products;
+  const totalImages = list.reduce((s,p)=>s+(parseInt(p.images)||0),0) + legacy.images;
+  const totalFamilies = uniqueVals('family').length;
+  document.getElementById('tallyProducts').textContent = totalProducts;
+  document.getElementById('tallyImages').textContent = totalImages;
+  document.getElementById('tallyFamilies').textContent = totalFamilies;
+}
+
+function renderGroups(){
+  const container = document.getElementById('groups');
+  container.innerHTML = '';
+  const list = filteredProducts();
+
+  if(list.length===0){
+    container.innerHTML = '<div class="empty-state">No products match these filters. Clear a filter, or add a new product.</div>';
+    return;
+  }
+
+  const byFamily = {};
+  list.forEach(p=>{
+    byFamily[p.family] = byFamily[p.family] || [];
+    byFamily[p.family].push(p);
+  });
+
+  Object.keys(byFamily).sort().forEach(fam=>{
+    const items = byFamily[fam];
+    const group = document.createElement('div');
+    group.className = 'group';
+    const imgSum = items.reduce((s,p)=>s+(parseInt(p.images)||0),0);
+    group.innerHTML = `
+      <div class="group-head">
+        <h2>${escapeHtml(fam)}</h2>
+        <span class="count">${items.length} product${items.length===1?'':'s'} · ${imgSum} images</span>
+      </div>
+      <div class="row head">
+        <div>SKU</div><div>Description</div><div>Color / finish</div><div>Base</div><div style="text-align:right">Imgs</div><div></div>
+      </div>
+    `;
+    items.forEach(p=>{
+      const row = document.createElement('div');
+      row.className = 'row';
+      row.innerHTML = `
+        <div class="sku" data-label="SKU">${escapeHtml(p.sku)}</div>
+        <div class="desc" data-label="Description">${escapeHtml(p.desc)}</div>
+        <div data-label="Color">${escapeHtml(p.color||'—')}</div>
+        <div data-label="Base">${escapeHtml(p.base||'—')}</div>
+        <div class="imgcount" data-label="Imgs">${p.images||0}</div>
+        <div class="row-actions">
+          <button onclick="editProduct('${p.id}')">edit</button>
+          <button onclick="deleteProduct('${p.id}')">del</button>
+        </div>
+      `;
+      group.appendChild(row);
+    });
+    container.appendChild(group);
+  });
+}
+
+function renderWatch(){
+  const ul = document.getElementById('watchList');
+  ul.innerHTML = watchItems.map(w=>`<li>${escapeHtml(w)}</li>`).join('');
+}
+
+function render(){
+  renderChips();
+  renderGroups();
+  renderTally();
+}
+
+// ---- Drawer / CRUD ----
+function openDrawer(product){
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('drawer').classList.add('open');
+  if(product){
+    document.getElementById('drawerTitle').textContent = 'Edit product';
+    document.getElementById('editId').value = product.id;
+    document.getElementById('f-sku').value = product.sku;
+    document.getElementById('f-family').value = product.family;
+    document.getElementById('f-desc').value = product.desc;
+    document.getElementById('f-color').value = product.color||'';
+    document.getElementById('f-base').value = product.base||'';
+    document.getElementById('f-images').value = product.images||0;
+  } else {
+    document.getElementById('drawerTitle').textContent = 'Add product';
+    document.getElementById('editId').value = '';
+    ['f-sku','f-family','f-desc','f-color','f-base'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('f-images').value = 5;
+  }
+}
+function closeDrawer(){
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('drawer').classList.remove('open');
+}
+function editProduct(id){
+  const p = products.find(x=>x.id===id);
+  if(p) openDrawer(p);
+}
+function deleteProduct(id){
+  if(!confirm('Remove this product from the index?')) return;
+  products = products.filter(p=>p.id!==id);
+  persist();
+  render();
+  showToast('Product removed');
+}
+function saveProduct(){
+  const sku = document.getElementById('f-sku').value.trim();
+  const family = document.getElementById('f-family').value.trim();
+  const desc = document.getElementById('f-desc').value.trim();
+  if(!sku || !family){
+    alert('SKU and sub-family are required.');
+    return;
+  }
+  const editId = document.getElementById('editId').value;
+  const data = {
+    sku, family, desc,
+    color: document.getElementById('f-color').value.trim(),
+    base: document.getElementById('f-base').value.trim(),
+    images: parseInt(document.getElementById('f-images').value)||0,
+  };
+  if(editId){
+    const idx = products.findIndex(p=>p.id===editId);
+    if(idx>-1) products[idx] = {...products[idx], ...data};
+    showToast('Product updated');
+  } else {
+    data.id = 'p'+Date.now();
+    products.push(data);
+    showToast('Product added');
+  }
+  persist();
+  closeDrawer();
+  render();
+}
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 1800);
+}
+
+// ---- Export / Import ----
+function exportJSON(){
+  const payload = {products, legacy, exportedAt: new Date().toISOString()};
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'sz-series-catalog.json';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  showToast('Exported');
+}
+function importJSON(event){
+  const file = event.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e=>{
+    try{
+      const data = JSON.parse(e.target.result);
+      if(Array.isArray(data.products)){
+        products = data.products;
+        persist();
+      }
+      if(data.legacy){
+        legacy = data.legacy;
+        document.getElementById('legacyProducts').value = legacy.products||0;
+        document.getElementById('legacyImages').value = legacy.images||0;
+        localStorage.setItem(LEGACY_KEY, JSON.stringify(legacy));
+      }
+      render();
+      showToast('Imported');
+    }catch(err){
+      alert('Could not read that file — expecting a .json export from this catalog.');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+// ---- Wire up ----
+document.getElementById('search').addEventListener('input', e=>{
+  filters.search = e.target.value;
+  renderGroups();
+});
+document.getElementById('legacyProducts').addEventListener('input', persistLegacy);
+document.getElementById('legacyImages').addEventListener('input', persistLegacy);
+
+try{
+  load();
+  renderWatch();
+  render();
+}catch(e){
+  console.error('Catalog failed to initialize', e);
+}
+</script>
+</body>
+</html>
